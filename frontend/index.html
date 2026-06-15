@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ProjectHub – Quản lý Dự án</title>
+  <meta name="description" content="Hệ thống quản lý dự án, thành viên, sprint và milestone hiện đại." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ============ TOAST ============ -->
+<div id="toast-container"></div>
+
+<!-- ============ MODAL OVERLAY ============ -->
+<div id="modal-overlay" class="modal-overlay hidden">
+  <div id="modal-box" class="modal-box">
+    <div class="modal-header">
+      <h3 id="modal-title">Modal</h3>
+      <button id="modal-close" class="btn-icon" onclick="closeModal()">✕</button>
+    </div>
+    <div id="modal-body"></div>
+  </div>
+</div>
+
+<!-- ============ SIDEBAR ============ -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <span class="logo-icon">⬡</span>
+    <span class="logo-text">ProjectHub</span>
+  </div>
+
+  <div class="sidebar-user">
+    <div class="user-avatar" id="avatar-display">U</div>
+    <div class="user-info">
+      <div class="user-name" id="username-display">Người dùng</div>
+      <div class="user-id-display" id="userid-small"></div>
+    </div>
+    <button class="btn-icon" onclick="showUserModal()" title="Đổi User ID">✎</button>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a href="#" class="nav-item active" id="nav-projects" onclick="showPage('projects')">
+      <span class="nav-icon">◈</span> Dự án
+    </a>
+    <a href="#" class="nav-item" id="nav-myprojects" onclick="showPage('myprojects')">
+      <span class="nav-icon">◉</span> Dự án của tôi
+    </a>
+  </nav>
+
+  <div class="sidebar-footer">
+      <span>API: <code>103.178.235.78:5001</code></span>
+  </div>
+</aside>
+
+<!-- ============ MAIN CONTENT ============ -->
+<main class="main">
+
+  <!-- TOP BAR -->
+  <header class="topbar">
+    <div class="topbar-left">
+      <button class="btn-icon sidebar-toggle" onclick="toggleSidebar()">☰</button>
+      <div id="breadcrumb" class="breadcrumb">Tất cả dự án</div>
+    </div>
+    <div class="topbar-right">
+      <button class="btn btn-primary" id="topbar-action-btn" onclick="showCreateProjectModal()">
+        <span>＋</span> Tạo dự án
+      </button>
+    </div>
+  </header>
+
+  <!-- PAGE: ALL PROJECTS -->
+  <section id="page-projects" class="page active">
+    <div class="page-header">
+      <div>
+        <h1 class="page-title">Tất cả dự án</h1>
+        <p class="page-subtitle">Quản lý toàn bộ các dự án trong hệ thống</p>
+      </div>
+      <div class="search-box">
+        <span class="search-icon">⌕</span>
+        <input id="search-projects" type="text" placeholder="Tìm kiếm dự án..." oninput="filterProjects()" />
+      </div>
+    </div>
+    <div id="projects-grid" class="projects-grid">
+      <div class="loading-state">
+        <div class="spinner"></div>
+        <p>Đang tải dự án...</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PAGE: MY PROJECTS -->
+  <section id="page-myprojects" class="page">
+    <div class="page-header">
+      <div>
+        <h1 class="page-title">Dự án của tôi</h1>
+        <p class="page-subtitle">Các dự án bạn đang tham gia</p>
+      </div>
+    </div>
+    <div id="myprojects-grid" class="projects-grid">
+      <div class="loading-state">
+        <div class="spinner"></div>
+        <p>Đang tải...</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PAGE: PROJECT DETAIL -->
+  <section id="page-detail" class="page">
+    <div id="project-detail-content"></div>
+  </section>
+
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>
