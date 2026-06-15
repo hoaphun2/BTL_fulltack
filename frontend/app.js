@@ -49,10 +49,10 @@ function showUserModal() {
 
 function saveUser() {
   const name = document.getElementById('f-username').value.trim();
-  const id   = document.getElementById('f-userid').value.trim();
+  const id = document.getElementById('f-userid').value.trim();
   if (!name || !id) { showToast('Vui lòng điền đầy đủ thông tin', 'error'); return; }
   currentUserName = name;
-  currentUserId   = id;
+  currentUserId = id;
   localStorage.setItem('userName', name);
   localStorage.setItem('userId', id);
   updateUserDisplay();
@@ -207,8 +207,8 @@ function buildProjectForm(p = null) {
   const val = (f, def = '') => p ? (p[f] ?? def) : def;
   const toDateInput = d => d ? d.split('T')[0] : '';
 
-  const statusOptions = ['Active','Completed','Archived'].map(s =>
-    `<option value="${s}" ${val('status') === s ? 'selected':''}>${s}</option>`
+  const statusOptions = ['Active', 'Completed', 'Archived'].map(s =>
+    `<option value="${s}" ${val('status') === s ? 'selected' : ''}>${s}</option>`
   ).join('');
 
   return `
@@ -234,8 +234,8 @@ function buildProjectForm(p = null) {
       <div class="form-group">
         <label class="form-label">Màu dự án</label>
         <div class="color-preview">
-          <input id="f-color" type="color" style="width:44px;height:36px;border:none;background:none;cursor:pointer;padding:0;" value="${val('color','#6c63ff')}" />
-          <input id="f-color-hex" class="form-input" style="flex:1" placeholder="#6c63ff" value="${val('color','#6c63ff')}" oninput="syncColorHex()" maxlength="7" />
+          <input id="f-color" type="color" style="width:44px;height:36px;border:none;background:none;cursor:pointer;padding:0;" value="${val('color', '#6c63ff')}" />
+          <input id="f-color-hex" class="form-input" style="flex:1" placeholder="#6c63ff" value="${val('color', '#6c63ff')}" oninput="syncColorHex()" maxlength="7" />
         </div>
       </div>
       ${isEdit ? `
@@ -261,12 +261,12 @@ function syncColorHex() {
 }
 
 function collectProjectForm(isEdit = false) {
-  const name    = document.getElementById('f-name').value.trim();
-  const desc    = document.getElementById('f-desc').value.trim();
-  const start   = document.getElementById('f-start').value;
-  const end     = document.getElementById('f-end').value;
+  const name = document.getElementById('f-name').value.trim();
+  const desc = document.getElementById('f-desc').value.trim();
+  const start = document.getElementById('f-start').value;
+  const end = document.getElementById('f-end').value;
   const colorHex = document.getElementById('f-color-hex').value.trim();
-  const color   = /^#[0-9A-Fa-f]{6}$/.test(colorHex) ? colorHex : null;
+  const color = /^#[0-9A-Fa-f]{6}$/.test(colorHex) ? colorHex : null;
 
   if (!name) { showToast('Tên dự án là bắt buộc', 'error'); return null; }
   if (!start) { showToast('Ngày bắt đầu là bắt buộc', 'error'); return null; }
@@ -358,8 +358,8 @@ function renderProjectDetail(p) {
   const sprints = p.sprints || [];
   const milestones = p.milestones || [];
 
-  const activeSprints   = sprints.filter(s => s.status === 'Active').length;
-  const doneMilestones  = milestones.filter(m => m.isCompleted).length;
+  const activeSprints = sprints.filter(s => s.status === 'Active').length;
+  const doneMilestones = milestones.filter(m => m.isCompleted).length;
 
   // breadcrumb
   document.getElementById('breadcrumb').innerHTML =
@@ -538,9 +538,9 @@ function showEditMemberModal(projectId, memberId, currentRole, name) {
     <div class="form-group">
       <label class="form-label">Vai trò mới</label>
       <select id="f-m-newrole" class="form-select">
-        <option value="Member" ${currentRole==='Member'?'selected':''}>Member</option>
-        <option value="Manager" ${currentRole==='Manager'?'selected':''}>Manager</option>
-        <option value="Owner" ${currentRole==='Owner'?'selected':''}>Owner</option>
+        <option value="Member" ${currentRole === 'Member' ? 'selected' : ''}>Member</option>
+        <option value="Manager" ${currentRole === 'Manager' ? 'selected' : ''}>Manager</option>
+        <option value="Owner" ${currentRole === 'Owner' ? 'selected' : ''}>Owner</option>
       </select>
     </div>
     <div class="form-actions">
@@ -654,10 +654,10 @@ function showCreateSprintModal(projectId) {
 }
 
 async function submitCreateSprint(projectId) {
-  const name  = document.getElementById('f-sp-name').value.trim();
-  const goal  = document.getElementById('f-sp-goal').value.trim();
+  const name = document.getElementById('f-sp-name').value.trim();
+  const goal = document.getElementById('f-sp-goal').value.trim();
   const start = document.getElementById('f-sp-start').value;
-  const end   = document.getElementById('f-sp-end').value;
+  const end = document.getElementById('f-sp-end').value;
   if (!name) { showToast('Tên sprint là bắt buộc', 'error'); return; }
   const dto = { name, goal: goal || null, startDate: start || null, endDate: end || null };
   const { ok, data } = await apiFetch(`/projects/${projectId}/sprints`, 'POST', dto);
@@ -702,10 +702,10 @@ function showEditSprintModal(projectId, sprintId) {
 }
 
 async function submitEditSprint(projectId, sprintId) {
-  const name  = document.getElementById('f-sp-name').value.trim();
-  const goal  = document.getElementById('f-sp-goal').value.trim();
+  const name = document.getElementById('f-sp-name').value.trim();
+  const goal = document.getElementById('f-sp-goal').value.trim();
   const start = document.getElementById('f-sp-start').value;
-  const end   = document.getElementById('f-sp-end').value;
+  const end = document.getElementById('f-sp-end').value;
   if (!name) { showToast('Tên sprint là bắt buộc', 'error'); return; }
   const dto = { name, goal: goal || null, startDate: start || null, endDate: end || null };
   const { ok, data } = await apiFetch(`/projects/${projectId}/sprints/${sprintId}`, 'PUT', dto);
@@ -749,7 +749,7 @@ function renderMilestonesPanel(milestones, projectId) {
     return `
       <div class="milestone-item">
         <div class="milestone-check ${m.isCompleted ? 'done' : ''}"
-             onclick="toggleMilestone('${projectId}','${m.id}',${m.isCompleted},'${escHtml(m.title)}','${m.dueDate.split('T')[0]}','${escHtml(m.description||'')}')">
+             onclick="toggleMilestone('${projectId}','${m.id}',${m.isCompleted},'${escHtml(m.title)}','${m.dueDate.split('T')[0]}','${escHtml(m.description || '')}')">
           ${m.isCompleted ? '✓' : ''}
         </div>
         <div class="milestone-info">
@@ -800,10 +800,10 @@ function showCreateMilestoneModal(projectId) {
 
 async function submitCreateMilestone(projectId) {
   const title = document.getElementById('f-ml-title').value.trim();
-  const desc  = document.getElementById('f-ml-desc').value.trim();
-  const due   = document.getElementById('f-ml-due').value;
+  const desc = document.getElementById('f-ml-desc').value.trim();
+  const due = document.getElementById('f-ml-due').value;
   if (!title) { showToast('Tiêu đề là bắt buộc', 'error'); return; }
-  if (!due)   { showToast('Ngày đến hạn là bắt buộc', 'error'); return; }
+  if (!due) { showToast('Ngày đến hạn là bắt buộc', 'error'); return; }
   const dto = { title, description: desc || null, dueDate: due };
   const { ok, data } = await apiFetch(`/projects/${projectId}/milestones`, 'POST', dto);
   if (ok && data.success) {
@@ -835,8 +835,8 @@ function showEditMilestoneModal(projectId, milestoneId) {
       <div class="form-group">
         <label class="form-label">Trạng thái</label>
         <select id="f-ml-done" class="form-select">
-          <option value="false" ${!m.isCompleted?'selected':''}>Đang thực hiện</option>
-          <option value="true"  ${m.isCompleted?'selected':''}>Hoàn thành</option>
+          <option value="false" ${!m.isCompleted ? 'selected' : ''}>Đang thực hiện</option>
+          <option value="true"  ${m.isCompleted ? 'selected' : ''}>Hoàn thành</option>
         </select>
       </div>
     </div>
@@ -849,11 +849,11 @@ function showEditMilestoneModal(projectId, milestoneId) {
 
 async function submitEditMilestone(projectId, milestoneId) {
   const title = document.getElementById('f-ml-title').value.trim();
-  const desc  = document.getElementById('f-ml-desc').value.trim();
-  const due   = document.getElementById('f-ml-due').value;
-  const done  = document.getElementById('f-ml-done').value === 'true';
+  const desc = document.getElementById('f-ml-desc').value.trim();
+  const due = document.getElementById('f-ml-due').value;
+  const done = document.getElementById('f-ml-done').value === 'true';
   if (!title) { showToast('Tiêu đề là bắt buộc', 'error'); return; }
-  if (!due)   { showToast('Ngày đến hạn là bắt buộc', 'error'); return; }
+  if (!due) { showToast('Ngày đến hạn là bắt buộc', 'error'); return; }
   const dto = { title, description: desc || null, dueDate: due, isCompleted: done };
   const { ok, data } = await apiFetch(`/projects/${projectId}/milestones/${milestoneId}`, 'PUT', dto);
   if (ok && data.success) {
@@ -922,14 +922,14 @@ function showToast(msg, type = 'info') {
    ============================================================ */
 function formatDate(d) {
   if (!d) return '—';
-  return new Date(d).toLocaleDateString('vi-VN', { day:'2-digit', month:'2-digit', year:'numeric' });
+  return new Date(d).toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric' });
 }
 function formatDateTime(d) {
   if (!d) return '—';
-  return new Date(d).toLocaleString('vi-VN', { day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit' });
+  return new Date(d).toLocaleString('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
 }
 function escHtml(s) {
-  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+  return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 }
 function renderEmpty(text) {
   return `<div class="empty-state" style="grid-column:1/-1"><div class="empty-icon">📭</div><div class="empty-text">${text}</div></div>`;
